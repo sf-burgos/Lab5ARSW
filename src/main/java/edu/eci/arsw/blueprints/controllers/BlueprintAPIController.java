@@ -28,7 +28,7 @@ public class BlueprintAPIController {
             return new ResponseEntity<>(bps.getAllBlueprints(), HttpStatus.ACCEPTED);
         } catch (BlueprintNotFoundException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-            return new ResponseEntity<>("Error al obtener blueprints.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

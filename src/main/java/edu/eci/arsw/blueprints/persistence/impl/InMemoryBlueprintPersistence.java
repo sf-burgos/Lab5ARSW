@@ -29,13 +29,13 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     public InMemoryBlueprintPersistence() {
         //load stub data
         Point[] pts=new Point[]{new Point(140, 140),new Point(115, 115)};
-        Blueprint bp=new Blueprint("Pepito", "plano1 ",pts);
+        Blueprint bp=new Blueprint("Pepito", "plano1",pts);
         blueprints.put(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
         pts=new Point[]{new Point(10, 20),new Point(50, 60)};
-        bp=new Blueprint("Pepito", "plano2 ",pts);
+        bp=new Blueprint("Pepito", "plano2",pts);
         blueprints.put(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
         pts=new Point[]{new Point(40, 30),new Point(70, 80)};
-        bp=new Blueprint("Juanito", "plano3 ",pts);
+        bp=new Blueprint("Juanito", "plano3",pts);
         blueprints.put(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
         
     }    
@@ -52,7 +52,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
     @Override
     public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
-        if(blueprints.containsKey(new Tuple<>(author, bprintname))) throw new BlueprintNotFoundException("No existe blueprint con nombre "+bprintname+" del autor "+author);
+        if(!blueprints.containsKey(new Tuple<>(author, bprintname))) throw new BlueprintNotFoundException("No existe blueprint con nombre "+bprintname+" del autor "+author);
         return blueprints.get(new Tuple<>(author, bprintname));
     }
 
