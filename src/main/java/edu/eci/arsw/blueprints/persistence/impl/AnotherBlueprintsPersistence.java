@@ -40,4 +40,9 @@ public class AnotherBlueprintsPersistence implements BlueprintsPersistence{
     public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
         return null;
     }
+
+    @Override
+    public void modyfyornewBlueprint(Blueprint bp, String author, String blueprintName) throws BlueprintPersistenceException {
+
+    }
 }

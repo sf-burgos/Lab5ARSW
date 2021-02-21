@@ -41,23 +41,21 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }    
     
     @Override
-    public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
-        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(),bp.getName()))){
-            throw new BlueprintPersistenceException("The given blueprint already exists: "+bp);
-        }
+    public synchronized void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
+        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(),bp.getName()))) throw new BlueprintPersistenceException("The given blueprint already exists: "+bp);
         else{
             blueprints.put(new Tuple<>(bp.getAuthor(),bp.getName()), bp);
         }        
     }
 
     @Override
-    public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
+    public synchronized Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
         if(!blueprints.containsKey(new Tuple<>(author, bprintname))) throw new BlueprintNotFoundException("No existe blueprint con nombre "+bprintname+" del autor "+author);
         return blueprints.get(new Tuple<>(author, bprintname));
     }
 
     @Override
-    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
+    public synchronized Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
 
         Set<Blueprint> bpByAuthor = new HashSet<>();
         for (Tuple<String, String> x : blueprints.keySet()){
@@ -70,13 +68,19 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }
 
     @Override
-    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
+    public synchronized Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
         Set<Blueprint> bps = new HashSet<>();
         for (Tuple<String, String> x : blueprints.keySet()){
             bps.add(blueprints.get(x));
         }
         if(bps.isEmpty()) throw new BlueprintNotFoundException("No existen blueprints.");
         return bps;
+    }
+
+    @Override
+    public synchronized void modyfyornewBlueprint(Blueprint bp, String author, String blueprintName) throws BlueprintPersistenceException {
+        if(!blueprints.containsKey(new Tuple<>(author, blueprintName))) saveBlueprint(bp);
+        else blueprints.put(new Tuple<>(author, blueprintName),bp);
     }
 
 

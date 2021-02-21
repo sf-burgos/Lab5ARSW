@@ -1,0 +1,6 @@
+Brayan Steven Burgos Delgado
+Daniel Alejandro Varón Rojas
+
+Las condiciones de carrera se generan en el uso de los datos en este caso en el uso de la lista que contiene los blueprints.
+Para solucionar esta condición de carrera se debe garantizar que en el uso de esta lista (ya sea una consulta o una actualización en la misma) sea único.
+Garantizamos esto con el uso de métodos sincronizados los cuales nos ayudan a controlar el ingreso a los datos y prevenir errores de uso.

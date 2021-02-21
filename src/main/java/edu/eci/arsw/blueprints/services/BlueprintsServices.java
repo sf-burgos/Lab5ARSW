@@ -58,12 +58,16 @@ public class BlueprintsServices {
      * @return all the blueprints of the given author
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
-    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
+    public synchronized Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
         Set<Blueprint> actual =bpp.getBlueprintsByAuthor(author);
         Set<Blueprint> salida = new HashSet<>();
         for(Blueprint b:actual){
             salida.add(filter.Filters(b));
         }
         return salida;
+    }
+
+    public void modyfyornewBlueprint(Blueprint o, String authorName, String blueprintName) throws BlueprintPersistenceException {
+        bpp.modyfyornewBlueprint(o,authorName,blueprintName);
     }
 }

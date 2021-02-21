@@ -41,4 +41,12 @@ public interface BlueprintsPersistence {
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException;
 
     Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException;
+
+    /**
+     *
+     * @param bp the new blueprint
+     * @throws BlueprintPersistenceException if a blueprint with the same name already exists,
+     *    or any other low-level persistence error occurs.
+     */
+    public void modyfyornewBlueprint(Blueprint bp,String author,String blueprintName) throws BlueprintPersistenceException;
 }

@@ -116,7 +116,15 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 El componente BlueprintsRESTAPI funcionará en un entorno concurrente. Es decir, atederá múltiples peticiones simultáneamente (con el stack de aplicaciones usado, dichas peticiones se atenderán por defecto a través múltiples de hilos). Dado lo anterior, debe hacer una revisión de su API (una vez funcione), e identificar:
 
 * Qué condiciones de carrera se podrían presentar?
+
+	* Se puede presentar que se generen varias peticiones al mismo tiempo en el mismo servicio.
+	* Se puede llegar a generar un problema con el Post al realizar una solicitud del mismo dato.
+	* Al intentar acualizar un dato con el metodo Put se puede generar un error si se esta solicitando una peticion del mismo dato.
+
+
 * Cuales son las respectivas regiones críticas?
+
+	* Las regiones criticas son en las que se hace el uso de la lista de los blueprints en InMemoryBlueprintPersistence.
 
 Ajuste el código para suprimir las condiciones de carrera. Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
 
