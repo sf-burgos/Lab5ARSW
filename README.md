@@ -104,6 +104,8 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 	
 
 	Nota: puede basarse en el formato jSON mostrado en el navegador al consultar una orden con el método GET.
+![](img/p1.png)
+![](img/p2.png)
 
 
 3. Teniendo en cuenta el autor y numbre del plano registrado, verifique que el mismo se pueda obtener mediante una petición GET al recurso '/blueprints/{author}/{bpname}' correspondiente.
